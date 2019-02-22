@@ -1,0 +1,13 @@
+<h2>Answers</h2>
+<br>
+hello {{ user.username }}
+{{ user.q1 }}
+{{ user.q2 }}
+<br>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+<br>
+hello {{ user.username }}
+  <button type="submit">Submit</button>
+</form>
