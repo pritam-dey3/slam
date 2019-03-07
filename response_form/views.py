@@ -30,7 +30,6 @@ def ResponseFormView(request):
              #== author
             request.user.count += 1
             submission.submit_count = request.user.count
-            submission.title = str(request.user.username) + str(submission.submit_count)  
             request.user.save()     
             submission.save()
             mail()

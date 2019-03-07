@@ -4,13 +4,18 @@
   {% csrf_token %}
   <div id="big-form">
     <div class="form-group do-block">
-      <p class="h4">একটা ভালো দেখে গানের লিস্ট দে</p>
+      <p class="h4">
+        একটা ভালো দেখে গানের লিস্ট দে
+        <!--q1-->
+      </p>
       <br />
       <p class="text-muted">
         গান খুবই অসাধারণ একটা জিনিস | এমন কিছু গান বল যেগুলো শুনে হয়তো আমাদের
         কথা মনে পড়বে বা এমনিই শুনে মজা পাবো
+        <!--user.help1-->
       </p>
       {% render_field form.ans1 %}
+      <!--form.ans1-->
     </div>
 
     <div class="form-group do-none">

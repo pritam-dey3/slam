@@ -15,25 +15,10 @@ def apply_defaults(cls):
 
 #@apply_defaults
 class CustomUser(AbstractUser):
-    q1 = models.CharField(max_length=200, default='0')
-    q2 = models.CharField(max_length=200, default='0')
+    q1 = models.CharField(max_length=200, default='help text for q1')
+    q2 = models.CharField(max_length=200, default='help text for q2')
     count = models.IntegerField(default=0)
-    USERNAME_FIELD = 'email'
-    email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
-    REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS
-    # def create_superuser(self, email, password):
-
-    #     if password is None:
-    #         raise TypeError('Superusers must have a password.')
-
-    #     user = self.create_user(email, password)
-    #     user.is_superuser = True
-    #     user.is_staff = True
-    #     user.save()
-
-    #     return user
-
-
+   
 '''def apply_defaults(cls):
     defaults = {
         'default_value1':True,
