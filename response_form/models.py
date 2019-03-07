@@ -10,9 +10,8 @@ import questions_and_answers
 
 class ResponseModel(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    q1 = models.CharField(max_length=200)
-    q2 = models.CharField(max_length=200)
-    text = models.TextField()
+    ans1 = models.TextField()
+    ans2 = models.TextField()
     title = models.CharField(max_length=200, default='user') #redundant
     submit_count = models.IntegerField(default=0)
     

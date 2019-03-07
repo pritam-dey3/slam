@@ -1,13 +1,38 @@
-<h2>Answers</h2>
-<br>
-hello {{ user.username }}
-{{ user.q1 }}
-{{ user.q2 }}
-<br>
+{% extends 'base.html' %} {% block content %} {% load widget_tweaks %}
+<br />
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-<br>
-hello {{ user.username }}
+  <div id="big-form">
+    <div class="form-group do-block">
+      <p class="h4">একটা ভালো দেখে গানের লিস্ট দে</p>
+      <br />
+      <p class="text-muted">
+        গান খুবই অসাধারণ একটা জিনিস | এমন কিছু গান বল যেগুলো শুনে হয়তো আমাদের
+        কথা মনে পড়বে বা এমনিই শুনে মজা পাবো
+      </p>
+      {% render_field form.ans1 %}
+    </div>
+
+    <div class="form-group do-none">
+      <p class="h4">তোর প্রীয় কিছু সিনেমা</p>
+      <br />
+      <p class="text-muted">
+        আমি সিনেমা দেখতে খুবই ভালোবাসি। আমার প্রীয় কিছু সিনেমা হল:<br />
+        ১. kung fu panda <br />
+        ২. barfi<br />
+        এর মধ্যে কিছু না দেখে থাকলে শিগগিরি দেখে নে।
+      </p>
+      {% render_field form.ans2 %}
+    </div>
+
+    <div class="btn-group btn-group-lg group1">
+      <button type="button" class="btn prevBtn">Previous</button>
+      <button type="button" class="btn nextBtn">Next</button>
+    </div>
+    <br />
+    <br />
+  </div>
+
   <button type="submit">Submit</button>
 </form>
+{% endblock %}

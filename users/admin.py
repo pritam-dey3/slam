@@ -10,7 +10,6 @@ import pprint
 from .forms import CustomUserCreation, CustomUserChange
 from .models import CustomUser
 
-fields_ = tuple(questions_and_answers.fields.keys())
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreation
