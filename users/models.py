@@ -18,9 +18,9 @@ class CustomUser(AbstractUser):
     q1 = models.CharField(max_length=200, default='0')
     q2 = models.CharField(max_length=200, default='0')
     count = models.IntegerField(default=0)
-    # USERNAME_FIELD = 'email'
-    # email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
-    # REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS
+    USERNAME_FIELD = 'email'
+    email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
+    REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS
     # def create_superuser(self, email, password):
 
     #     if password is None:
