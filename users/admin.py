@@ -9,6 +9,11 @@ import pprint
 
 from .forms import CustomUserCreation, CustomUserChange
 from .models import CustomUser
+from slam.questions_and_answers import fields as f
+
+tpl = ['email', 'count']
+for key in f.keys():
+    tpl.extend([key + '-Q', key + '-H'])
 
 
 class CustomUserAdmin(UserAdmin):
@@ -17,7 +22,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = ['email', 'username', 'id']
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        (('Personal info'), {'fields': ('email', 'q1','q2','count',)}),
+        (('Personal info'), {'fields': tuple(tpl)}),
     )
     model = CustomUser
 

@@ -16,5 +16,5 @@ class SignUp(generic.CreateView):
 class HomePage(TemplateView):
     template_name = 'home.html'
     def dispatch(self, request, *args, **kwargs):
-        print (self.request.user)
+       # print (self.request.user.__dict__)
         return super(HomePage, self).dispatch(request, *args, **kwargs)
