@@ -30,7 +30,7 @@ class ResponseForm(ModelForm):
         if user:
             for key, value in f.items():
                 self.fields[key].help_text = getattr(user, key + '-H')
-                #self.fields[key].help_text = getattr(user, key + '-Q')
+                self.fields[key].label = getattr(user, key + '-Q')
 
     class Meta:
         model = ResponseModel
