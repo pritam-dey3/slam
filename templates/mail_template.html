@@ -9,9 +9,9 @@
   </h2>
   <br />
   <p style="color: #6c757d;">
-    {{ sub.help_text }}
+    {{ sub.help_text|linebreaks }}
   </p>
-  <p>{{ sub.value }}</p>
+  <p>{{ sub.value|linebreaks }}</p>
 </div>
 {% endfor %}
 </table>
