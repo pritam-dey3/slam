@@ -1,41 +1,62 @@
-#response_form/views.py
+# response_form/views.py
 import sys
-sys.path.insert(0,'..')
+sys.path.insert(0, '..')
 
-from django.shortcuts import render
-from django.forms.models import ModelForm
-from .models import ResponseModel
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.conf import settings
+from slam.questions_and_answers import fields as f
 from django.utils.translation import gettext_lazy as _
-from slam.questions_and_answers import fields as f 
-from slam.questions_and_answers import create_message
+from django.conf import settings
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from .models import ResponseModel
+from django.forms.models import ModelForm
+from django.shortcuts import render
+from django.forms.models import model_to_dict
+
+
+
+class Sub:
+    def __init__(self, label, help_text, value):
+        self.label = label
+        self.help_text = help_text
+        self.value = value
 
 
 class ResponseForm(ModelForm):
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(ResponseForm, self).__init__(*args, **kwargs)
         if user:
             for key, value in f.items():
                 self.fields[key].help_text = getattr(user, key + '-H')
                 #self.fields[key].help_text = getattr(user, key + '-Q')
+
     class Meta:
         model = ResponseModel
         exclude = ('author', 'submit_count')
+
 
 @login_required
 def ResponseFormView(request):
     def mail():
         subject = 'Thank you! Greetings from Pritam'
-        res_ans = []
+        data = []
         for key in f.keys():
-            res_ans.append(getattr(submission, key))
-        message = create_message(res_ans)
+            data.append(Sub(
+                label=getattr(request.user, key+'-Q'),
+                help_text=getattr(request.user, key+'-H'),
+                value=getattr(submission, key)
+            ))
+        #message = create_message(res_ans)
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = [request.user.email,]
-        send_mail( subject, message, email_from, recipient_list )
+        recipient_list = [request.user.email, ]
+        #send_mail( subject, message, email_from, recipient_list )
+        html_message = render_to_string(
+            'mail_template.html', {'data': data})
+        plain_message = strip_tags(html_message)
+        send_mail(subject, plain_message, email_from,
+                  recipient_list, html_message=html_message)
     if request.method == "POST":
         form = ResponseForm(request.POST)
         if form.is_valid():
@@ -43,15 +64,10 @@ def ResponseFormView(request):
             submission.author = request.user
             request.user.count += 1
             submission.submit_count = request.user.count
-            request.user.save()     
+            request.user.save()
             submission.save()
             mail()
-            print(submission)
             return render(request, 'thanks.html', {})
     else:
         form = ResponseForm(user=request.user)
         return render(request, 'response_tem.html', {'form': form})
-
-
-
-

@@ -21,8 +21,9 @@
       <p class="text-muted">
         {{ field.help_text }}
       </p>
-      {% render_field field %}
+      {% render_field field required='required'%}
     </div>
+    
     {% endif %} {% endfor %}
 
     <!--outro-->
