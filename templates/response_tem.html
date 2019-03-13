@@ -7,7 +7,7 @@
     <div class="form-group do-block">
       <p class="">
         {{ user }}, <br />
-        {{ user.intro|linebreaks }}
+        {{ user.intro|linebreaksbr }}
       </p>
     </div>
 
@@ -19,7 +19,8 @@
       </p>
       <br />
       <p class="text-muted">
-        {{ field.help_text|linebreaks }}
+      
+        {{  field.help_text|linebreaksbr }}
       </p>
       {% render_field field required='required'%}
     </div>
@@ -29,7 +30,7 @@
     <!--outro-->
     <div class="form-group do-none">
       <p class="">
-        {{ user.out|linebreaks }}
+        {{ user.out|linebreaksbr }}
         <div class="btn-group btn-group-lg group1">
            <button type="submit">Submit</button>
           </div>
