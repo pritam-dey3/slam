@@ -11,13 +11,12 @@ from django.db import models
 class ResponseModel(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    submit_count = models.IntegerField(default=0)
+    #submit_count = models.IntegerField(default=0)
     rpublic = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.author) + str(self.submit_count)
-        return fields
+        return str(self.author) + str(self.id)#+ str(self.submit_count) 
 
 
 for key, value in f.items():
-    ResponseModel.add_to_class(key, models.TextField(value[0], blank=True))
+    ResponseModel.add_to_class(key, models.TextField(blank=True))

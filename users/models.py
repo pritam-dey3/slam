@@ -13,7 +13,7 @@ from slam.questions_and_answers import intro2, outro
 
 # @apply_defaults
 class CustomUser(AbstractUser):
-    count = models.IntegerField(default=0)
+    last_response = models.IntegerField(null=True,blank=True)
     intro = models.TextField(default=intro2)
     out = models.TextField(default=outro)
 

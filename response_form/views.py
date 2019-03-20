@@ -48,10 +48,8 @@ def ResponseFormView(request):
                 help_text=getattr(request.user, key+'-H'),
                 value=getattr(submission, key)
             ))
-        #message = create_message(res_ans)
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [request.user.email, ]
-        #send_mail( subject, message, email_from, recipient_list )
         html_message = render_to_string(
             'mail_template.html', {'data': data})
         plain_message = strip_tags(html_message)
@@ -62,10 +60,11 @@ def ResponseFormView(request):
         if form.is_valid():
             submission = form.save(commit=False)
             submission.author = request.user
-            request.user.count += 1
-            submission.submit_count = request.user.count
-            request.user.save()
+            #submission.submit_count = request.user.count
             submission.save()
+            # print(submission.id)
+            request.user.last_response = submission.id
+            request.user.save()
             mail()
             return render(request, 'thanks.html', {})
     else:

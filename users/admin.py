@@ -11,7 +11,7 @@ from .forms import CustomUserCreation, CustomUserChange
 from .models import CustomUser
 from slam.questions_and_answers import fields as f
 
-tpl = ['email', 'count', 'intro', 'out']
+tpl = ['email', 'last_response', 'intro', 'out']
 for key in f.keys():
     tpl.extend([key + '-Q', key + '-H'])
 
