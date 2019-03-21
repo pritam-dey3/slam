@@ -11,8 +11,12 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from .models import ResponseModel
 from django.forms.models import ModelForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from django.forms.models import model_to_dict
+from django.views.generic.base import TemplateView 
+from django.apps import apps
 
 
 
@@ -66,7 +70,7 @@ def ResponseFormView(request):
             request.user.last_response = submission.id
             request.user.save()
             mail()
-            return render(request, 'thanks.html', {})
+            return HttpResponseRedirect(reverse('end'))
     else:
         try:
             prev_data = ResponseModel.objects.get(id=request.user.last_response)
@@ -75,3 +79,14 @@ def ResponseFormView(request):
             prev_data = None
         form = ResponseForm(instance=prev_data, user=request.user)
         return render(request, 'response_tem.html', {'form': form})
+
+User = apps.get_model('users', 'CustomUser')
+
+class EndView(TemplateView):
+    template_name = "end.html"
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["friends"] = User.objects.all()
+        return context
+

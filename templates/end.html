@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <ul class="list-group list-group-flush">
+      <div class="col-md-4">
+        {% for friend in friends %}
+        <li class="list-group-item" style="background-color: transparent; border-bottom-color: white;"> {{ friend }} </li>
+        {% endfor %}
+        </div>
+    </ul>
+{% endblock %}

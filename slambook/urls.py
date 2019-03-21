@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', myLoginView.as_view()),
     path('users/', include('users.urls')),
-    path('response/', include('response_form.urls'))
+    path('response/', include('response_form.urls')),
 ]
