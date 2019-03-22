@@ -13,7 +13,7 @@ from slam.questions_and_answers import fields as f
 
 tpl = ['email', 'last_response', 'intro', 'out']
 for key in f.keys():
-    tpl.extend([key + '-Q', key + '-H'])
+    tpl.extend([key + '_q', key + '_h'])
 
 
 class CustomUserAdmin(UserAdmin):
@@ -27,7 +27,3 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
 admin.site.register(CustomUser, CustomUserAdmin)
-''' fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        (('Personal info'), {'fields': ('q1',)}),
-    )'''

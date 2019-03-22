@@ -20,6 +20,6 @@ class CustomUser(AbstractUser):
 
 for key, value in f.items():
     CustomUser.add_to_class(
-        key + '-Q', models.CharField(default=value[0], max_length=400))
+        key + '_q', models.CharField(default=value[0], max_length=400))
     CustomUser.add_to_class(
-        key + '-H', models.TextField(default=value[1], blank=True))
+        key + '_h', models.TextField(default=value[1], blank=True))

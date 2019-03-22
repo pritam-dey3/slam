@@ -4,14 +4,14 @@
 <p>   এই mail টাকে যত্ন করে রেখে দে ভাই.... </p> <br> <br>
 {% for sub in data %} 
 <div class="form-group do-none">
-  <h2 style="margin-bottom: 0px;">
-    {{ sub.label }}
-  </h2>
-  <br />
-  <p style="color: #6c757d;">
-    {{ sub.help_text|linebreaksbr }}
-  </p>
-  <p>{{ sub.value|linebreaksbr }}</p>
+  {% if sub.label != "Rpublic" %}
+      <h2 style="margin-bottom: 0px;">
+        {{ sub.label }}</h2>
+      <br />
+      <p style="color: #6c757d;">
+        {{ sub.help_text|linebreaksbr }}</p>
+      <p>{{ sub|linebreaksbr }}</p>
+  {% endif %}
 </div>
 {% endfor %}
 </table>

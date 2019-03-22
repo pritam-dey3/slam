@@ -13,7 +13,7 @@ from .models import ResponseModel
 from django.forms.models import ModelForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.forms.models import model_to_dict
 from django.views.generic.base import TemplateView 
 from django.apps import apps
@@ -33,8 +33,8 @@ class ResponseForm(ModelForm):
         super(ResponseForm, self).__init__(*args, **kwargs)
         if user:
             for key, value in f.items():
-                self.fields[key].help_text = getattr(user, key + '-H')
-                self.fields[key].label = getattr(user, key + '-Q')
+                self.fields[key].help_text = getattr(user, key + '_h')
+                self.fields[key].label = getattr(user, key + '_q')
 
     class Meta:
         model = ResponseModel
@@ -45,13 +45,13 @@ class ResponseForm(ModelForm):
 def ResponseFormView(request):
     def mail():
         subject = 'Thank you! Greetings from Pritam'
-        data = []
-        for key in f.keys():
-            data.append(Sub(
-                label=getattr(request.user, key+'-Q'),
-                help_text=getattr(request.user, key+'-H'),
-                value=getattr(submission, key)
-            ))
+        data = ResponseForm(instance=submission, user=request.user)
+        # for key in f.keys():
+        #     data.append(Sub(
+        #         label=getattr(request.user, key+'_q'),
+        #         help_text=getattr(request.user, key+'-H'),
+        #         value=getattr(submission, key)
+        #     ))
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [request.user.email, ]
         html_message = render_to_string(
@@ -87,6 +87,25 @@ class EndView(TemplateView):
     
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["friends"] = User.objects.all()
+        context["friends"] = [ResponseModel.objects.get(id=usr.last_response) 
+                for usr in User.objects.all() 
+                if not usr.is_superuser]
         return context
 
+class StoryView(TemplateView):
+    template_name = "user_story.html"
+
+    def get_context_data(self, *args, **kwargs):
+        friend_user = get_object_or_404(User, pk=kwargs['pk'])
+        friend_ans = ResponseModel.objects.get(id=friend_user.last_response)
+        context = super().get_context_data(*args, **kwargs)
+        if friend_ans.rpublic:
+            q = getattr(friend_user, 'question_11_q')
+            a = friend_ans.question_11
+        else:
+            q = friend_user.username + " hasn't allowed to show this content"
+            a = "বেশি পাকামু ভালো নয়!"
+        context["question"] = q
+        context["answer"] = a
+        context['name'] = friend_user.username
+        return context

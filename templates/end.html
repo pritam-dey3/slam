@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-    <ul class="list-group list-group-flush">
-      <div class="col-md-4">
-        {% for friend in friends %}
-        <li class="list-group-item" style="background-color: transparent; border-bottom-color: white;"> {{ friend }} </li>
+    <div class="row">
+      <div class="col-md-12" align="center">
+      <a href="{% url 'logout' %}">logout</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <ul class="list-group list-group-horizontal">
+        {% for form in friends %}
+        <li class="list-group-item m-2" style="background-color: transparent; border-top:None; border-bottom-color: white;">
+         {% if form.rpublic %}
+         <a href="{% url 'story' form.author.id %}">
+         {% else %}
+         <a style="color: inherit; text-decotration:inherit;">
+          {% endif %}
+          {{ form.author }} </a>
+         </li>
         {% endfor %}
-        </div>
-    </ul>
+       
+      </ul>
+    </div>
 {% endblock %}

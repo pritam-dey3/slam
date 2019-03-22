@@ -23,6 +23,11 @@
         {{  field.help_text|linebreaksbr }}
       </p>
       {% render_field field required='required'%}
+
+      
+      {% if field.name == "question_11" %}
+      <p> {{ form.rpublic }} make this answer public </p>
+      {% endif %}
     </div>
     
     {% endif %} {% endfor %}
