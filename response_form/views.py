@@ -89,7 +89,7 @@ class EndView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         context["friends"] = [ResponseModel.objects.get(id=usr.last_response) 
                 for usr in User.objects.all() 
-                if not usr.is_superuser]
+                if not usr.is_superuser and usr.last_response]
         return context
 
 class StoryView(TemplateView):
