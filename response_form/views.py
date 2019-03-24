@@ -80,7 +80,7 @@ class StoryView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         friend_user = get_object_or_404(User, pk=kwargs['pk'])
-        friend_ans = ResponseModel.objects.get(id=friend_user.last_response)
+        friend_ans = get_object_or_404(ResponseModel,id=friend_user.last_response)
         context = super().get_context_data(*args, **kwargs)
         if friend_ans.rpublic:
             q = getattr(friend_user, 'question_11_q')
