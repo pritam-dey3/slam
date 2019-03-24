@@ -18,15 +18,6 @@ from django.forms.models import model_to_dict
 from django.views.generic.base import TemplateView 
 from django.apps import apps
 
-
-
-class Sub:
-    def __init__(self, label, help_text, value):
-        self.label = label
-        self.help_text = help_text
-        self.value = value
-
-
 class ResponseForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -46,12 +37,6 @@ def ResponseFormView(request):
     def mail():
         subject = 'Thank you! Greetings from Pritam'
         data = ResponseForm(instance=submission, user=request.user)
-        # for key in f.keys():
-        #     data.append(Sub(
-        #         label=getattr(request.user, key+'_q'),
-        #         help_text=getattr(request.user, key+'-H'),
-        #         value=getattr(submission, key)
-        #     ))
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [request.user.email, ]
         html_message = render_to_string(
@@ -64,9 +49,7 @@ def ResponseFormView(request):
         if form.is_valid():
             submission = form.save(commit=False)
             submission.author = request.user
-            #submission.submit_count = request.user.count
             submission.save()
-            # print(submission.id)
             request.user.last_response = submission.id
             request.user.save()
             mail()

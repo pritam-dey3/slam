@@ -11,11 +11,10 @@ from django.db import models
 class ResponseModel(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    #submit_count = models.IntegerField(default=0)
     rpublic = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.author) + str(self.id)#+ str(self.submit_count) 
+        return str(self.author) + str(self.id)
 
 
 for key, value in f.items():
