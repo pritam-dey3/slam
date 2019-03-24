@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
-<h1 align="center">{{ intro }} </h1> <br> <br>
+<h1 align="center">{{ intro }} </h1> 
+<br> <br>
 
 <form method="post">
   {% csrf_token %} {% if form.errors %}
@@ -21,4 +22,6 @@
     <button type="submit" class="btn">Login</button>
   </div>
 </form>
+<br>
+ <div style="float:right;"> <a href="{% url 'end' %}">All Submissions</a> </div> 
 {% endblock %}
