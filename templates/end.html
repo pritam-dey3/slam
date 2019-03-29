@@ -9,9 +9,9 @@
     <div class="row">
         {% for form in friends %}
          {% if form.rpublic %}
-         <a class="col-lg-2 col-md-4 col-sm-6" style="display:inline-block;" href="{% url 'story' form.author.id %}">
+         <a class="col-auto" style="display:inline-block;" href="{% url 'story' form.author.id %}">
          {% else %}
-         <a class="col-lg-2 col-md-4 col-sm-6" style="display:inline-block; color:inherit; text-decoration:none;">
+         <a class="col-auto" style="display:inline-block;color:inherit; text-decoration:none;">
           {% endif %}
           {{ form.author }} 
          </a>
