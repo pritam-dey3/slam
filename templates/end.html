@@ -7,18 +7,14 @@
     </div>
 
     <div class="row">
-      <ul class="list-group list-group-horizontal">
         {% for form in friends %}
-        <li class="list-group-item m-2" style="background-color: transparent; border-top:None; border-bottom-color: white;">
          {% if form.rpublic %}
-         <a href="{% url 'story' form.author.id %}">
+         <a class="col-lg-2 col-md-4 col-sm-6" style="display:inline-block;" href="{% url 'story' form.author.id %}">
          {% else %}
-         <a style="color: inherit; text-decotration:inherit;">
+         <a class="col-lg-2 col-md-4 col-sm-6" style="display:inline-block; color:inherit; text-decoration:none;">
           {% endif %}
-          {{ form.author }} </a>
-         </li>
+          {{ form.author }} 
+         </a>
         {% endfor %}
-       
-      </ul>
     </div>
 {% endblock %}
